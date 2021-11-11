@@ -7,7 +7,7 @@
   </head>
 <body>
     <div class="full-width d-flex justify-content-center align-items-center">
-      <form action="/signup" method= "POST" class="p-5">
+      <form action="/auth/signup" method= "POST" class="p-5">
        <div class="mb-3">
           <label for="emailAddress" class="form-label"></label>
           <input type="email" name = "userEmail" class= "form-control input-height" id="emailAddress" placeholder= "Email" size="30" required autofocus>
@@ -30,7 +30,7 @@
           <button class="btn btn-dark hero-button">Sign Up</button>
         </div>
         <div class="mt-5 d-flex justify-content-center">
-          <h5>Already a user? <a href="/">log in</a></h5>
+          <h5>Already a user? <a href="/auth/login">log in</a></h5>
         </div>
       </form>
     </div>
