@@ -1,39 +1,67 @@
 const usersModel = require('../model/usersModel')
 const articlesModel = require('../model/articlesModel')
+const bcrypt = require('bcrypt');
+let flash = require('connect-flash');
 
-let getSignup = async (_req, res, _next) => {
-    res.render('signUp');
+let getSignup = async (req, res, _next) => {
+
+    let data = req.flash('formData');
+    let userName = null;
+    let userEmail = null;
+    let userPassword = null;
+    let userConfirmedPassword = null;
+
+    if (data.length > 0) {
+        userName = data[0].userName;
+        userEmail = data[0].userEmail;
+        userPassword = data[0].userPassword;
+        userConfirmedPassword = data[0].userConfirmedPassword;
+    }
+
+    res.render('signUp', {
+        message: req.flash('errorMessage'),
+        userName: userName,
+        userEmail: userEmail,
+        userPassword: userPassword,
+        userConfirmedPassword: userConfirmedPassword
+    });
 }
 
 let postSignup = async (req, res, _next) => {
 
-    let { userEmail, userName, userPassword, userConfirmedPassword } = req.body;
+    let { userName, userEmail,
+        userPassword: plainTextPassword,
+        userConfirmedPassword: plainTextConfirmedPassword } = req.body;
+
+    //the follwing encrypts my password and stores it in DB
+    let userPassword = await bcrypt.hash(plainTextPassword, 10);
     let userEmailFromDB = null;
+    let userNameFromDB = null;
 
-    console.log(req.body);
-
-    //if the validation is true, then do a query in the db to see if the user
+    //if the validation is true, then do a query
     if (validateEmail(userEmail)) {
 
         //Query in the db to see if the userEmail exist
         try {
-            userEmailFromDB = await usersModel.findOne({ email: userEmail });
-            console.log(userEmailFromDB);
+            userEmail = userEmail.toLowerCase()
+            userEmailFromDB = await usersModel.findOne({ uemail: userEmail });
+            // console.log(userEmailFromDB);
         } catch (error) {
             console.log(error);
         }
 
         //Query in the db to see if the userName exist
         try {
+            userName = userName.toLowerCase()
             userNameFromDB = await usersModel.findOne({ uname: userName });
-            console.log(userEmailFromDB);
+            // console.log(userEmailFromDB);
         } catch (error) {
             console.log(error);
         }
 
-        // if the user exist in the DB
-        // then userEmailFromDB won't be null
-        if (!userEmailFromDB && (userPassword == userConfirmedPassword) && !userNameFromDB) {
+        if (!userEmailFromDB && !userNameFromDB
+            && (plainTextPassword === plainTextConfirmedPassword)) {
+
             let newUser = new usersModel(
                 {
                     uname: userName,
@@ -43,22 +71,33 @@ let postSignup = async (req, res, _next) => {
 
             try {
                 await newUser.save();
-                res.redirect('/auth/login');
+                req.flash('errorMessage', 'Thank You! Account successfully created!');
+                res.redirect('/auth/signup');
             } catch (error) {
                 console.log(`Couldn't save the user in DB ${error}`);
             }
 
         } else {
-            res.render('signUp', {
-                message: "User Already Exist"
-            });
+            if (userNameFromDB) {
+                req.flash('errorMessage', 'Username alredy exist')
+                req.flash('formData', req.body)
+                res.redirect('/auth/signup')
+            } else if (userEmailFromDB) {
+                req.flash('errorMessage', 'Email already exist')
+                req.flash('formData', req.body)
+                res.redirect('/auth/signup')
+            }
+            else if ((plainTextPassword !== plainTextConfirmedPassword)) {
+                req.flash('errorMessage', 'Password don\'t match')
+                req.flash('formData', req.body)
+                res.redirect('/auth/signup')
+            }
         }
 
     } else {
-        //render a message saying Incorrect email format
-        res.render('signUp', {
-            message: "Incorrect email format"
-        });
+        req.flash('errorMessage', "Incorrect email format")
+        req.flash('formData', req.body)
+        res.redirect('/auth/signup')
     }
 }
 
