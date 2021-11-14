@@ -48,12 +48,7 @@ input[type="text"], input[type="email"], input[type="password"]
 }
 
 .message{
-    color: red;
-}
-
-.success-message{
-    color:rgb(84, 184, 84);
-    font-size: 1rem;
+    font-size: 1.2rem;
 }
 
 .hero-button{
@@ -66,7 +61,7 @@ input[type="text"], input[type="email"], input[type="password"]
    font-size: 1.2rem !important;
 }
 
-@media (max-width:575.98px) {
+@media screen and (max-width:575.98px) {
     form{
         width: 100%;
     }
