@@ -1,25 +1,28 @@
 const usersModel = require('../model/usersModel')
 const articlesModel = require('../model/articlesModel')
 const bcrypt = require('bcrypt');
-let flash = require('connect-flash');
+// let flash = require('connect-flash');
 
 let getSignup = async (req, res, _next) => {
 
-    let data = req.flash('formData');
+    let data = req.session.formData;
+    let message = req.flash('errorMessage');
     let userName = null;
     let userEmail = null;
     let userPassword = null;
     let userConfirmedPassword = null;
 
-    if (data.length > 0) {
-        userName = data[0].userName;
-        userEmail = data[0].userEmail;
-        userPassword = data[0].userPassword;
-        userConfirmedPassword = data[0].userConfirmedPassword;
+    // if message exist that means there is an error message or success message
+    // we want to show the error message with pre populated form values in 
+    if (message.length > 0) {
+        userName = data.userName;
+        userEmail = data.userEmail;
+        userPassword = data.userPassword;
+        userConfirmedPassword = data.userConfirmedPassword;
     }
 
     res.render('signUp', {
-        message: req.flash('errorMessage'),
+        message: message,
         userName: userName,
         userEmail: userEmail,
         userPassword: userPassword,
@@ -71,34 +74,29 @@ let postSignup = async (req, res, _next) => {
 
             try {
                 await newUser.save();
-                req.flash('errorMessage', 'Thank You! Account successfully created!');
-                res.redirect('/auth/signup');
+                req.flash('success_msg', 'You are now registered and can log in');
+                return res.redirect('/auth/login');
             } catch (error) {
                 console.log(`Couldn't save the user in DB ${error}`);
             }
-
         } else {
             if (userNameFromDB) {
-                req.flash('errorMessage', 'Username alredy exist')
-                req.flash('formData', req.body)
-                res.redirect('/auth/signup')
-            } else if (userEmailFromDB) {
-                req.flash('errorMessage', 'Email already exist')
-                req.flash('formData', req.body)
-                res.redirect('/auth/signup')
+                req.flash('errorMessage', 'Username already exist');
             }
-            else if ((plainTextPassword !== plainTextConfirmedPassword)) {
-                req.flash('errorMessage', 'Password don\'t match')
-                req.flash('formData', req.body)
-                res.redirect('/auth/signup')
+            if (userEmailFromDB) {
+                req.flash('errorMessage', 'Email already exist');
+            }
+            if ((plainTextPassword !== plainTextConfirmedPassword)) {
+                req.flash('errorMessage', 'Password do not match');
             }
         }
 
     } else {
-        req.flash('errorMessage', "Incorrect email format")
-        req.flash('formData', req.body)
-        res.redirect('/auth/signup')
+        req.flash('errorMessage', "Invalid email format");
     }
+
+    req.session.formData = req.body;
+    res.redirect('/auth/signup');
 }
 
 function validateEmail(userEmail) {
