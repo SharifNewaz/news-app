@@ -7,13 +7,15 @@ let session = require('express-session');
 let flash = require('connect-flash');
 require('./config/database')
 
+//require routers
 let indexRouter = require('./routes/index');
 let authRouter = require('./routes/auth');
 let articlesRouter = require('./routes/articles');
 
+//express
 let app = express();
 
-// view engine setup
+//view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -33,6 +35,13 @@ app.use(session({
 
 // connect flash
 app.use(flash());
+
+//set middleware for global flash message
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  next();
+})
 
 //routes
 app.use('/', indexRouter);
