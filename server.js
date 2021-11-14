@@ -19,17 +19,22 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser('secretStringForCookies'));
+
+//express session
 app.use(session({
   secret: 'secretStringForSession',
   cookie: { maxAge: 60000 },
   resave: true,
   saveUninitialized: true
 }));
+
+// connect flash
 app.use(flash());
 
+//routes
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/articles', articlesRouter);
