@@ -1,105 +1,118 @@
 const usersModel = require('../model/usersModel')
 const articlesModel = require('../model/articlesModel')
 const bcrypt = require('bcrypt');
-// let flash = require('connect-flash');
 
-let getSignup = async (req, res, _next) => {
-
-    let data = req.session.formData;
-    let message = req.flash('errorMessage');
-    let userName = null;
-    let userEmail = null;
-    let userPassword = null;
-    let userConfirmedPassword = null;
-
-    // if message exist that means there is an error message or success message
-    // we want to show the error message with pre populated form values in 
-    if (message.length > 0) {
-        userName = data.userName;
-        userEmail = data.userEmail;
-        userPassword = data.userPassword;
-        userConfirmedPassword = data.userConfirmedPassword;
-    }
-
-    res.render('signUp', {
-        message: message,
-        userName: userName,
-        userEmail: userEmail,
-        userPassword: userPassword,
-        userConfirmedPassword: userConfirmedPassword
-    });
+let getSignup = async (_req, res, _next) => {
+    res.render('signUp');
 }
 
 let postSignup = async (req, res, _next) => {
+    let { userName, userEmail, userPassword, confirmPassword } = req.body;
+    let errors = [];
 
-    let { userName, userEmail,
-        userPassword: plainTextPassword,
-        userConfirmedPassword: plainTextConfirmedPassword } = req.body;
+    //user does not enter all the form input
+    if (!userName || !userEmail || !userPassword || !confirmPassword) {
+        errors.push({ msg: 'Please fill out all fields' });
+    }
 
-    //the follwing encrypts my password and stores it in DB
-    let userPassword = await bcrypt.hash(plainTextPassword, 10);
-    let userEmailFromDB = null;
-    let userNameFromDB = null;
+    //validate the userName later and add the error message accordingly
+    // if (!validateUserName(userName)) {
+    //     errors.push({ msg: 'Invalid userName format' });
+    // }
 
-    //if the validation is true, then do a query
-    if (validateEmail(userEmail)) {
+    //validate the email
+    if (!validateEmail(userEmail)) {
+        errors.push({ msg: 'Invalid email format' })
+    }
+
+    //userPassword does not match with confirmPassword
+    if (userPassword != confirmPassword) {
+        errors.push({ msg: 'Passwords do not match' });
+    }
+
+    //password has to be minimum 8 charecter long
+    if (userPassword.length < 8) {
+        errors.push({ msg: 'Password must be at least 8 charecters' });
+    }
+
+    //if there is errors in the array, then render the signUp page
+    //to flash the errors
+    if (errors.length > 0) {
+        res.render('signup', {
+            errors,
+            userName,
+            userEmail,
+            userPassword,
+            confirmPassword
+        });
+
+    } else {
+        let userNameFromDB = null;
+        let userEmailFromDB = null;
+        let newUser = null;
+
+        //Query in the db to see if the userName exist
+        try {
+            userNameFromDB = await usersModel.findOne({ uname: userName });
+            if (userNameFromDB) {
+                errors.push({ msg: "Username already exist" });
+            }
+        } catch (err) {
+            console.log(err);
+        }
 
         //Query in the db to see if the userEmail exist
         try {
             userEmail = userEmail.toLowerCase()
             userEmailFromDB = await usersModel.findOne({ uemail: userEmail });
-            // console.log(userEmailFromDB);
-        } catch (error) {
-            console.log(error);
+            if (userEmailFromDB) {
+                errors.push({ msg: "Useremail already exist" });
+            }
+        } catch (err) {
+            console.log(err);
         }
 
-        //Query in the db to see if the userName exist
-        try {
-            userName = userName.toLowerCase()
-            userNameFromDB = await usersModel.findOne({ uname: userName });
-            // console.log(userEmailFromDB);
-        } catch (error) {
-            console.log(error);
+        //if there is errors in the array, then render the signUp page
+        //to flash the errors again
+        if (errors.length > 0) {
+            res.render('signup', {
+                errors,
+                userName,
+                userEmail,
+                userPassword,
+                confirmPassword
+            });
         }
 
-        if (!userEmailFromDB && !userNameFromDB
-            && (plainTextPassword === plainTextConfirmedPassword)) {
-
-            let newUser = new usersModel(
+        //if both username and email are not found in the db
+        //then, create a new user(i.e make an instance of userSchema)
+        //NOTE: WE DON'T SAVE THE THE INSTANCE IN THE DB YET 
+        if (!userNameFromDB && !userEmailFromDB) {
+            newUser = new usersModel(
                 {
                     uname: userName,
                     uemail: userEmail,
                     upassword: userPassword
                 });
-
-            try {
-                await newUser.save();
-                req.flash('success_msg', 'You are now registered and can log in');
-                return res.redirect('/auth/login');
-            } catch (error) {
-                console.log(`Couldn't save the user in DB ${error}`);
-            }
-        } else {
-            if (userNameFromDB) {
-                req.flash('errorMessage', 'Username already exist');
-            }
-            if (userEmailFromDB) {
-                req.flash('errorMessage', 'Email already exist');
-            }
-            if ((plainTextPassword !== plainTextConfirmedPassword)) {
-                req.flash('errorMessage', 'Password do not match');
-            }
         }
 
-    } else {
-        req.flash('errorMessage', "Invalid email format");
-    }
+        //encrypt the password before saving the instance
+        userPassword = await bcrypt.hash(userPassword, 10);
 
-    req.session.formData = req.body;
-    res.redirect('/auth/signup');
+        //save the instance after adding the encrypted password
+        //and redirect to login
+        try {
+            newUser.upassword = userPassword;
+            await newUser.save();
+            req.flash('success_msg', 'Account created, and you can log in now');
+            res.redirect('/auth/login');
+        } catch (error) {
+            console.log(`Couldn't save the user in DB ${error}`);
+        }
+    }
 }
 
-function validateEmail(userEmail) {
+let validateEmail = (userEmail) => {
     let regExEmail = /(^[a-zA-Z]{1,})((\d){1,}|[\_|\.|\-][a-zA-Z]{1,})?\@([a-zA-Z]{1,})\-?([a-zA-Z]{1,})?\.([a-zA-Z]{2,3})$/;
     return regExEmail.test(userEmail);
 }
