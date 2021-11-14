@@ -9,6 +9,13 @@
 <body>
     <div class="full-width d-flex justify-content-center align-items-center">
       <form action="/auth/login" class="p-5">
+        <div class="success-message d-flex justify-content-center">
+          <%if(success_msg != ''){%>
+                <h1 class="h4">
+                    <%=success_msg%>
+                </h1>
+            <%}%>
+        </div>
         <div class="mb-3">
           <label for="emailAddress" class="form-label"></label>
           <input type="text" class= "form-control input-height" id="emailAddress" placeholder= "UserName or Email" size="30" required autofocus>
