@@ -9,13 +9,7 @@
 <body>
     <div class="full-width d-flex justify-content-center align-items-center">
       <form action="/auth/login" class="p-5">
-        <div class="success-message d-flex justify-content-center">
-          <%if(success_msg != ''){%>
-                <h1 class="h4">
-                    <%=success_msg%>
-                </h1>
-            <%}%>
-        </div>
+      <%- include('partials/messages') %>
         <div class="mb-3">
           <label for="emailAddress" class="form-label"></label>
           <input type="text" class= "form-control input-height" id="emailAddress" placeholder= "UserName or Email" size="30" required autofocus>
@@ -29,11 +23,6 @@
             <h1 class="h5 mb-0 ps-2">Show Password</h1> 
           </div>
         </div>
-        <!-- <div class="mb-3 form-check">
-          <label for="remember" class= "remember-label d-flex justify-content-center">  
-            <input type="checkbox" class="form-check-input me-2" id="remember">Remember Me
-          </label>
-        </div> -->
         <div class="pt-4 d-flex justify-content-center"> 
           <button class="btn btn-dark hero-button">Log in</button>
         </div>
@@ -43,6 +32,8 @@
       </form>
     </div>
 </body>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-  <script src= "/javascripts/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script src= "/javascripts/index.js"></script>
 </html>
