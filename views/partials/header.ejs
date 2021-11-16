@@ -34,10 +34,22 @@
               <li>
                   <a class="nav-link" href="#">Saved</a>
               </li>
-              <li>
-              <!-- <h6 class="text-white">Welcome <%=name%></h6> -->
-                <button class="btn btn-outline-secondary"><a class="nav-link text-white h3 mb-0" href="/auth/logout" > <span class="glyphicon glyphicon-log-out"></span> Logout</a></button>
-              </li>
+              <li class="d-flex justify-content-center align-items-center">
+                <div class="dropdown">
+                  <button 
+                  class="btn btn-lg btn-outline-light dropdown-toggle text-center" type="button" 
+                  id="logout-dropdown" 
+                  data-bs-toggle="dropdown" 
+                  >
+                  Welcome, <%=name%>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="logout-dropdown">
+                    <li>
+                      <a class=" h5 dropdown-item" href="/auth/logout">Logout</a>
+                    </li> 
+                  </ul>
+                </div>
+            </li>
           </ul>
         </div>
       </nav>
