@@ -1,4 +1,4 @@
-/* the followings are styles for the login and the sign up button */
+/* the followings are styles for the login and the sign up pages */
 html{
     font-size: 65.5%;
     background: url('../images/news.jpg') no-repeat center center fixed;
@@ -24,6 +24,7 @@ form{
     min-height: 20rem;
 }
 
+/*increase the font of the texts that will be typed in the input field*/
 input[type="text"], input[type="email"], input[type="password"]
 {
     font-size:1.4rem;
@@ -32,6 +33,7 @@ input[type="text"], input[type="email"], input[type="password"]
     height: 3rem;
 }
 
+/*the following chnages the font of the placeholder texts in differnt browser*/
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     font-size: 1.5rem;
 }
@@ -61,8 +63,8 @@ input[type="text"], input[type="email"], input[type="password"]
    font-size: 1.2rem !important;
 }
 
-@media screen and (max-width:575.98px) {
+@media screen and (max-width: 425px) {
     form{
-        width: 100%;
+        width: 90%;
     }
 }

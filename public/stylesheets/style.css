@@ -17,6 +17,9 @@ header{
   font-family: var(--main-font);
 }
 
+button:hover{
+  font-size: 3rem;
+}
 .navbar-nav > li{
   font-size: 2rem;
   margin-left: 2rem;
