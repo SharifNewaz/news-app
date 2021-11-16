@@ -15,11 +15,9 @@ header{
   align-items: center;
   font-size: 1.6rem;
   font-family: var(--main-font);
+  letter-spacing: 0.15rem;
 }
 
-button:hover{
-  font-size: 3rem;
-}
 .navbar-nav > li{
   font-size: 2rem;
   margin-left: 2rem;
@@ -37,15 +35,17 @@ main{
 }
 
 /* footer section */
-footer{
+.main-footer {
   background-color: var(  --footer-color);
   font-family: var(--main-font);
   color: #fff;
   min-height: 10vh;
+  letter-spacing: 0.2rem;
 }
 
 footer img{
   background-color: #fff;
   border: .1rem solid  #fff;
   border-radius: 1rem;
+  width: 55%;
 }
