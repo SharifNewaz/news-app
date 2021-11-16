@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <title>News</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
   <link rel="stylesheet" href="/stylesheets/auth.css" />
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   </head>
@@ -10,52 +11,47 @@
       <form action="/auth/signup" method= "POST" class="p-5">
         <%- include('partials/messages')%>
         <div class="mb-3">
-          <label for="name" class="form-label"></label>
+          <label for="name" class="form-label h5">Username</label>
           <input 
           type="text"  
           name = "userName" 
           value="<%= typeof userName != 'undefined' ? userName : '' %>" 
           class= "form-control input-height"
-          id="name" placeholder= "Username" 
+          id="name"
           size="30" required autofocus 
           autocomplete="username">
         </div>
        <div class="mb-3">
-          <label for="emailAddress" class="form-label"></label>
+          <label for="emailAddress" class="form-label h5">Email</label>
           <input 
             type="email" 
             name = "userEmail" 
             value="<%= typeof userEmail != 'undefined' ? userEmail : '' %>" 
             class= "form-control input-height" 
-            id="emailAddress" 
-            placeholder= "Email" 
+            id="emailAddress"
             size="30" required autofocus
           >
         </div>
         <div class="mb-3">
-          <label for="userPassword" class="form-label">
-          </label>
+          <label for="userPassword" class="form-label h5">Password</label>
           <input 
             type="password"
             name = "userPassword" 
             value="<%= typeof userPassword != 'undefined' ? userPassword : '' %>" 
             class= "form-control input-height inputPassword" 
-            id="userPassword" 
-            placeholder= "Password" 
+            id="userPassword"
             size="30" required autofocus 
             autocomplete="new-password"
           >
         </div>
         <div class="mb-3">
-          <label for="confirmPassword" class="form-label">
-          </label>
+          <label for="confirmPassword" class="form-label h5">Confirm Password</label>
           <input 
             type="password" 
             name = "confirmPassword" 
             value="<%= typeof confirmPassword != 'undefined' ? confirmPassword : '' %>" 
             class= "form-control input-height inputPassword" 
-            id="confirmPassword" 
-            placeholder= "Confirm Password" 
+            id="confirmPassword"
             size="30" required autofocus 
             autocomplete="new-password"
           >
