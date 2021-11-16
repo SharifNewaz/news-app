@@ -2,22 +2,22 @@
 <html lang="en">
 <head>
   <title>News</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
   <link rel="stylesheet" href="/stylesheets/auth.css" />
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
   </head>
 <body>
     <div class="full-width d-flex justify-content-center align-items-center">
-      <form action="/auth/login" class="p-5">
+      <form action="/auth/login" method= "POST" class="p-5">
       <%- include('partials/messages') %>
         <div class="mb-3">
-          <label for="emailAddress" class="form-label"></label>
-          <input type="text" class= "form-control input-height" id="emailAddress" placeholder= "UserName or Email" size="30" required autofocus>
+          <label for="username-or-email" class="form-label h5">Username or Email</label>
+          <input type="text" name="userNameOrEmail" class="form-control input-height" id="username-or-email" size="30" required autofocus>
         </div>
         <div class="mb-3">
-          <label for="password" class="form-label">
-          </label>
-          <input type="password" class= "form-control input-height inputPassword" id="password" placeholder= "Password" size="30" required autofocus autocomplete="current-password">
+          <label for="password" class="form-label h5">Password</label>
+          <input type="password" name="password" class= "form-control input-height inputPassword" id="password" size="30" required autofocus autocomplete="current-password">
           <div class="mt-3 d-flex align-items-center"> 
             <input type="checkbox" id= "togglePassword"> 
             <h1 class="h5 mb-0 ps-2">Show Password</h1> 
