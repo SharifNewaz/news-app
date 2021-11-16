@@ -1,16 +1,22 @@
 const express = require('express');
 const router = express.Router();
-let { getLogin } = require('../controller/loginController')
-let { getSignup, postSignup } = require('../controller/signupController')
+let { getLogin, postLogin } = require('../controller/loginController');
+let { getSignup, postSignup } = require('../controller/signupController');
+let { getLogout } = require('../controller/logoutController');
+const { forwardAuthenticated } = require('../config/auth');
 
-/* GET users listing. */
-
-/* GET home page. */
-router.get('/login', getLogin);
-
+/* signup router */
 router.route('/signup')
-    .get(getSignup)
-    .post(postSignup)
+    .get(forwardAuthenticated, getSignup)
+    .post(postSignup);
 
+/* login router */
+router.route('/login')
+    .get(forwardAuthenticated, getLogin)
+    .post(postLogin);
+
+/* handle logout */
+router.route('/logout')
+    .get(getLogout);
 
 module.exports = router;
