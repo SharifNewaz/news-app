@@ -27,11 +27,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser('secretStringForCookies'));
 
-//express session
+// express session
+// 43200000 millisecond = half a day
 app.use(session({
   secret: 'secretStringForSession',
-  cookie: { maxAge: 60000 },
-  resave: true,
+  cookie: { maxAge: 43200000 },
+  resave: false,
   saveUninitialized: true
 }));
 
