@@ -9,7 +9,7 @@ module.exports = function (passport) {
             // since we want to login with either username or email
             // we need to check if the post login value is either username or email
             // if userNameOrEmail does not have @, then criteria is an username else it is an email
-            let criteria = (userNameOrEmail.indexOf('@') === -1) ? { uname: userNameOrEmail } : { uemail: userNameOrEmail };
+            let criteria = (userNameOrEmail.indexOf('@') === -1) ? { uname: userNameOrEmail } : { uemail: userNameOrEmail.toLowerCase() };
 
             //Match User
             try {
