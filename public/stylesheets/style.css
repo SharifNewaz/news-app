@@ -24,6 +24,11 @@ header{
   font-family: var(--main-font);
 }
 
+.user-dropdown {
+ width: 100%;
+ letter-spacing: 2px;
+}
+
 /* main styles */
 main{
   min-height: 80vh;
