@@ -1,5 +1,42 @@
 <%- include('partials/header')%>
-<main class='d-flex justify-content-center'>
+<main>
+    <section> 
+        <form class="search-button" action="/articles/api" method="POST">
+            <input type="text" name="articleTypes" size="50" required>
+            <div>
+                <button type="submit" class="btn btn-lg btn-dark">Search</button>
+            </div>
+        </form>
+    </section>
 
+    <section class="news-cards-section">
+        <form action="/articles/api" method="POST">
+            <div class="news-cards">
+            <%for(let i = 0; i < articles.length; i++){%>
+                <div class="news-card">
+                    <h2 class="h2 font-weight-bold">
+                        <a href="<%=articles[i].url%>" target="_blank" rel="noopener noreferrer"><%=articles[i].title.substring(0,40)%>..</a>
+                    </h2>
+                    <p class="h4"><%=articles[i].content.substring(0,150)%>..</p>
+                    <%if(articles[i].author){%>
+                        <p class="h5 text-center font-weight-bold">By <%=articles[i].author%></p>
+                    <%}else{%>
+                        <p class="h5 text-center font-weight-bold">By Unknown</p>
+                    <%}%>
+                    <div class="save-btn">
+                        <button type="submit" class="btn btn-lg btn-dark">Save</button>
+                    </div>
+                </div>
+            <%}%>
+            </div>
+        </form>
+    </section>
+    <section> 
+        <div id="saved-article-btn">
+            <button type="submit" class="btn btn-lg btn-dark"> <a
+                    href="/articles/saved-article">Saved
+                    article</a> </button>
+        </div>
+    </section>
 </main>
 <%- include('partials/footer')%>
