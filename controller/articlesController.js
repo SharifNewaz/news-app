@@ -12,7 +12,7 @@ module.exports = {
             // and we send the array of all the documents to be rendered in the fieldset
             res.render('articles', {
                 articles: data.articles,
-                name: req.user.uname
+                name: req.user.uname,
             })
         } catch (err) {
             console.log("error with querying docs using find()" + err)
