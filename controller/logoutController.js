@@ -5,7 +5,6 @@ module.exports = {
         //it does not remove thge session from the database
         //On the other hand destroy functions destrys the sessions
         //and removes it from the DB.
-        console.log(req.session)
         req.logout();
         req.session.destroy((err) => {
             if (err) throw err;
