@@ -5,6 +5,10 @@ html{
     background-size: cover;
 }
 
+a{
+  text-decoration: none !important;
+}
+
 h5 a{
     text-decoration: none;
 }
@@ -61,6 +65,15 @@ input[type="text"], input[type="email"], input[type="password"]
 
 .sign-btn{
    font-size: 1.2rem !important;
+}
+
+.card-body{
+    margin: 3rem;
+}
+
+.card-subtitle{
+    line-height: 2.5rem;
+    letter-spacing: 0.15rem;
 }
 
 @media screen and (max-width: 425px) {

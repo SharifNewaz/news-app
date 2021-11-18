@@ -8,7 +8,7 @@ html{
 }
 
 /* header and nav styles */
-header{
+.nav-head{
   background: var( --nav-color);
   min-height: 10vh;
   display: flex;
