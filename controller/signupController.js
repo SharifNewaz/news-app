@@ -1,5 +1,5 @@
-const usersModel = require('../model/usersModel')
-const articlesModel = require('../model/articlesModel')
+const usersModel = require('../models/usersModel')
+const articlesModel = require('../models/articlesModel')
 const bcrypt = require('bcrypt');
 
 module.exports = {
