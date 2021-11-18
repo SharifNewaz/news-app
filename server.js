@@ -1,11 +1,12 @@
-let createError = require('http-errors');
-let express = require('express');
-let path = require('path');
-let cookieParser = require('cookie-parser');
-let logger = require('morgan');
-let session = require('express-session');
-let flash = require('connect-flash');
-let passport = require('passport');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const session = require('express-session');
+const flash = require('connect-flash');
+const passport = require('passport');
+const MongoDBSession = require('connect-mongodb-session')(session);
 require('./config/passport')(passport);
 require('./config/database');
 
@@ -27,13 +28,23 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser('secretStringForCookies'));
 
-// express session
-// 43200000 millisecond = half a day
+
+//initialize mongo for sessionStorage
+const sessionStorage = new MongoDBSession({
+  uri: process.env.DB_URI,
+  collection: 'mySessions',
+});
+
+// express session middleware
+// 86400000 millisecond =  a day
+// 43200000 = half a day
+// cookie: { maxAge: 43200000 },
 app.use(session({
-  secret: 'secretStringForSession',
-  cookie: { maxAge: 43200000 },
+  secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: false,
+  cookie: { maxAge: 60000 },
+  store: sessionStorage,
 }));
 
 // Passport middleware

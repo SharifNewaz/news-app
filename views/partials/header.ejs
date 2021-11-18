@@ -9,49 +9,51 @@
   </head>
 <body>
   <header>
-    <div class="container">
-      <nav class="navbar navbar-expand-sm navbar-dark">
-        <a href="#" class="navbar-brand"><span class="h1">News</span></a>
-        <button 
-            class="navbar-toggler" 
-            type="button" 
-            data-bs-toggle="collapse" 
-            data-bs-target="#toggleMobileMenu" 
-            aria-controls="toggleMobileMenu" 
-            aria-expanded="false" 
-            aria-label="Toggle navigation"
-          >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="toggleMobileMenu">
-          <ul class="navbar-nav ms-auto text-center">
-              <li>
-                  <a class="nav-link" href="#">Home</a>
+    <section class="nav-head">
+      <div class="container">
+        <nav class="navbar navbar-expand-sm navbar-dark">
+          <a href="#" class="navbar-brand"><span class="h1">News</span></a>
+          <button 
+              class="navbar-toggler" 
+              type="button" 
+              data-bs-toggle="collapse" 
+              data-bs-target="#toggleMobileMenu" 
+              aria-controls="toggleMobileMenu" 
+              aria-expanded="false" 
+              aria-label="Toggle navigation"
+            >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="toggleMobileMenu">
+            <ul class="navbar-nav ms-auto text-center">
+                <li>
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#">News</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#">Saved</a>
+                </li>
+                <li class="d-flex justify-content-center align-items-center">
+                  <div class="dropdown">
+                    <button 
+                    class="btn btn-lg btn-outline-light dropdown-toggle text-center" type="button" 
+                    id="logout-dropdown" 
+                    data-bs-toggle="dropdown" 
+                    >
+                    Welcome, <%=name%>
+                    </button>
+                    <ul class="user-dropdown dropdown-menu" aria-labelledby="logout-dropdown">
+                      <li>
+                        <a class="h5 dropdown-item text-center" href="/auth/logout">Logout</a>
+                      </li> 
+                    </ul>
+                  </div>
               </li>
-              <li>
-                  <a class="nav-link" href="#">News</a>
-              </li>
-              <li>
-                  <a class="nav-link" href="#">Saved</a>
-              </li>
-              <li class="d-flex justify-content-center align-items-center">
-                <div class="dropdown">
-                  <button 
-                  class="btn btn-lg btn-outline-light dropdown-toggle text-center" type="button" 
-                  id="logout-dropdown" 
-                  data-bs-toggle="dropdown" 
-                  >
-                  Welcome, <%=name%>
-                  </button>
-                  <ul class="user-dropdown dropdown-menu" aria-labelledby="logout-dropdown">
-                    <li>
-                      <a class="h5 dropdown-item text-center" href="/auth/logout">Logout</a>
-                    </li> 
-                  </ul>
-                </div>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </div>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </section>
   </header>
