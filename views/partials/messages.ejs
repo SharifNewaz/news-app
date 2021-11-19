@@ -1,7 +1,7 @@
 <%if(locals.errors){%>
     <%errors.forEach((err)=>{%>
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <p class="h5 message mb-0 pt-1"><%=  err.msg %></p>
+            <p class="h5 message mb-0 pt-1 text-center"><%=  err.msg %></p>
             <button type="button" class="btn-close mt-1" data-bs-dismiss="alert" aria-label="Close"></button>
        </div>
     <%})%>
@@ -9,21 +9,21 @@
 
 <% if(success_msg != ''){ %>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <p class="h5 message mb-0 pt-1"><%= success_msg %></p>
+        <p class="h5 message mb-0 pt-1 text-center"><%= success_msg %></p>
         <button type="button" class="btn-close mt-1" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 <% } %>
 
 <% if(error_msg != ''){ %>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <p class="h5 message mb-0 pt-1"><%= error_msg %></p>
+        <p class="h5 message mb-0 pt-1 text-center"><%= error_msg %></p>
         <button type="button" class="btn-close mt-1" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 <% } %>
 
 <% if(error != ''){ %>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <p class="h5 message mb-0 pt-1"><%= error %></p>
+        <p class="h5 message mb-0 pt-1 text-center"><%= error %></p>
         <button type="button" class="btn-close mt-1" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 <% } %>

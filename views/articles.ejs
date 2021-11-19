@@ -1,5 +1,65 @@
 <%- include('partials/header')%>
-<main class='d-flex justify-content-center'>
+<main>
+    <!-- Search Bar -->
+    <section> 
+        <form class="search-button" action="/articles/api" method="POST">
+            <input type="text" name="articleTypes" size="50" required>
+            <div>
+                <button type="submit" class="btn btn-lg btn-dark">Search</button>
+            </div>
+        </form>
+    </section>
 
+    <!-- error or success messages -->
+     <%- include('partials/messages') %>
+     
+    <!-- articles section -->
+    <section>
+        <div class="news-cards">
+            <%for(let i = 0; i < articles.length; i++){%>
+            <!-- variables for article info -->
+            <%let articleTitle=articles[i].title%>
+            <%let articleContent=articles[i].content.substring(0,150)%>
+            <%let articleAuthor=articles[i].author%>
+            <%let articleDescription=articles[i].description%>
+            <%let articleUrl=articles[i].url%>
+            <%let articlePublished=articles[i].publishedAt%>
+            <div class="news-card">
+                <form action="/articles/api" method="POST">
+                    <h2 class="h2 font-weight-bold">
+                        <a href="<%=articles[i].url%>" target="_blank" rel="noopener noreferrer"><%=articleTitle.substring(0,40)%>..</a>
+                    </h2>
+                    <p class="h4"><%=articleContent%>..</p>
+
+                    <%if(articleAuthor){%>
+                        <p class="h5 text-center font-weight-bold">By <%=articleAuthor%></p>
+                    <%}else{%>
+                        <p class="h5 text-center font-weight-bold">By Unknown</p>
+                    <%}%>
+                    
+                    <!--When save button is clicked, the post request will submit the following info-->
+                    <input type="hidden" name="articleAuthor" value="<%=articleAuthor%>">
+                    <input type="hidden" name="articleTitle" value="<%=articleTitle%>">
+                    <input type="hidden" name="articleDescription" value="<%=articleDescription%>">
+                    <input type="hidden" name="articleUrl" value="<%=articleUrl%>">
+                    <input type="hidden" name="articleContent" value="<%=articleContent%>">
+                    <input type="hidden" name="articlePublished" value="<%=articlePublished%>">
+                    <div class="save-btn">
+                        <button type="submit" class="btn btn-lg btn-dark">Save</button>
+                    </div>
+                </form>
+            </div>
+            <%}%>
+        </div>
+    </section>
+
+    <!-- saved article button -->
+    <section>
+        <div id="saved-article-btn">
+            <button type="submit" class="btn btn-lg btn-dark"> <a
+                    href="/articles/saved-article">Saved article</a> 
+            </button>
+        </div>
+    </section>
 </main>
 <%- include('partials/footer')%>
