@@ -66,7 +66,6 @@ module.exports = {
                 if (!articleFromArticleDB.users.includes(req.user._id)) {
                     articleFromArticleDB.users.push(req.user._id);
                     userFromDB.uarticles.push(articleFromArticleDB._id);
-                    console.log("I'm here 1");
                     try {
                         await articleFromArticleDB.save();
                         await userFromDB.save();
@@ -77,7 +76,6 @@ module.exports = {
                         console.log(err);
                     }
                 } else {
-                    console.log("I'm here 2");
                     let errorMsg = `You have already saved the article, "${articleFromArticleDB.title}"`;
                     renderErrorMessages(articlesQueryText, articleFromArticleDB, errorMsg, req, res);
                     return;
