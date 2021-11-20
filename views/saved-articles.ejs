@@ -1,0 +1,47 @@
+<%- include('partials/header')%>
+<main>
+    <!-- For now Search Bar won't be in saved article,
+         we can, however, add the search bar to search
+         articles by catagory
+    -->
+    <!-- <section> 
+        <form class="search-button" action="/articles/api" method="POST">
+            <input type="text" name="articleTypes" size="50" required>
+            <div>
+                <button type="submit" class="btn btn-lg btn-dark">Search</button>
+            </div>
+        </form>
+    </section> -->
+    <!-- articles section -->
+    <section>
+        <div class="news-cards">
+            <%for(let i = 0; i < 20; i++){%>
+            <div class="news-card">
+                <form action="/articles/saved-articles" method="POST">
+                     <div class="save-btn">
+                        <button type="submit" class="btn btn-lg btn-dark">Edit</button>
+                    </div>
+                    <h2 class="h2 font-weight-bold">
+                       <a href="">Hello</a> 
+                    </h2>
+                     <p class="h4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, provident.</p>
+                     <p class="h5 text-center font-weight-bold">By Unknown</p>
+                    <div class="save-btn">
+                        <button type="submit" class="btn btn-lg btn-dark">Delete</button>
+                    </div>
+                </form>
+            </div>
+            <%}%>
+        </div>
+    </section>
+
+    <!-- saved article button -->
+    <section>
+        <div class="text-end py-5" id="saved-article-btn">
+            <button type="submit" class="btn btn-lg btn-dark"> <a
+                    href="/articles/api">Go to news page</a> 
+            </button>
+        </div>
+    </section>
+</main>
+<%- include('partials/footer')%>
