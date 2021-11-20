@@ -32,7 +32,7 @@ app.use(cookieParser('secretStringForCookies'));
 //initialize mongo for sessionStorage
 const sessionStorage = new MongoDBSession({
   uri: process.env.DB_URI,
-  collection: 'mySessions',
+  collection: 'sessions',
 });
 
 // express session middleware
