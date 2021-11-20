@@ -63,9 +63,9 @@ input[type="text"], input[type="email"], input[type="password"]
 
 /* Saved article button */
 #saved-article-btn{
-  display: flex;
-  justify-content: end;
-  padding: 0 3rem 3rem 0;
+  width: 90%;
+  margin:auto;
+  padding-right: 5rem;
 }
 #saved-article-btn button a{
   text-decoration: none;
