@@ -1,0 +1,33 @@
+<%- include('partials/header')%>
+    <main>
+        <div class="cards">
+            <div class="row">
+                <div class=" container col-sm-6">
+                    <div class="card">
+                        <div class="card-body" style="padding: 3rem;">
+                            <form method="POST" action="/articles/edit-article/<%=article._id%>?_method=PUT">
+                                <div class="form-group" style="margin-bottom: 1.5rem;">
+                                    <label for="exampleFormControlTextarea1">
+                                           <h1 class="font-weight-bold">Title</h1>
+                                    </label>
+                                    <textarea name="_method" class="form-control" id="exampleFormControlTextarea1"
+                                        rows="2" value="Hello"><%=article.title%></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">
+                                        <h1>Content</h1>
+                                    </label>
+                                    <textarea name="_method" class="form-control" id="exampleFormControlTextarea1"
+                                        rows="4" value="Hello"><%=article.content%></textarea>
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-lg btn-dark" style="margin-top: 2rem;">Save
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </main>
+    <%- include('partials/footer')%>
