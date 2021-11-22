@@ -35,6 +35,7 @@ main{
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  font-family:--main-font;
 }
 
 /*increase the font of the texts that will be typed in the input field*/
@@ -112,6 +113,10 @@ input[type="text"], input[type="email"], input[type="password"]
 
 .save-btn{
   padding-bottom: 2rem;
+}
+
+textarea{
+  font-size: 1.8rem !important;
 }
 
 /* footer section */
