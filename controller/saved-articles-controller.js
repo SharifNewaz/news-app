@@ -3,15 +3,14 @@ const articlesModel = require("../models/articles-model");
 const usersModel = require('../models/users-model');
 
 module.exports = {
-    //get the current user ID from this session
-    //create an array
-    //go through the database
+
     getSavedArticles: async (req, res, next) => {
+        //get the current user ID from this session
         let currentUserId = req.user._id;
         let userArticlesInDB = null;
 
         try {
-            //find all the articles that has the following users
+            //find all the articles that has the following user
             userArticlesInDB = await articlesModel.find({
                 "users": currentUserId
             });
@@ -19,18 +18,15 @@ module.exports = {
             console.log(error);
         }
 
+        //render those articles saved by that specific user
         res.render('saved-articles', {
             articles: userArticlesInDB,
             name: req.user.uname
         });
     },
 
-    // get the spefecific id of the article that 
-    // need to be deleted from req.param
-    // then find that specific id from the DB
-    // and delete it, after successfull delete
-    // just redirect to the same url
     deleteSavedArticle: async (req, res, next) => {
+        //get the article id fro, req.params
         let articleToBeDeletedID = req.params.id;
         let currentUserId = req.user._id;
         let numsOfArticles = req.body.articleLength;
@@ -51,7 +47,7 @@ module.exports = {
             );
 
             //if the article does not have any users, then just delete the article
-            //from the db, the length === 1 means the last user id has just been removed
+            //from the db. The length === 1 means the last user id has just been pulled ($pull)
             //from the "users" array
             if (articleTobeDeleted.users.length === 1) {
                 let x = await articlesModel.findOneAndDelete(
@@ -78,7 +74,7 @@ module.exports = {
     },
 
     //the following function is more like getting the edit page
-    //however we make it post because we need the articleID
+    //however, we make it post because we need the articleID
     //so that we can render the new poage with filled information
     getEditArticle: async (req, res, next) => {
         let articleID = req.body.articleID;
@@ -95,8 +91,6 @@ module.exports = {
     },
 
     putEditArticle: async (req, res) => {
-
-        // articleID is getting the 
         let articleID = req.params.id
         let updatedTitle = null;
         let updatedContent = null;
@@ -108,9 +102,7 @@ module.exports = {
 
         try {
             let article = await articlesModel.updateOne(
-                {
-                    _id: articleID
-                },
+                { _id: articleID },
                 {
                     $set: {
                         title: updatedTitle,
