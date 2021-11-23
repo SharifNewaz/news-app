@@ -62,7 +62,7 @@ module.exports = {
             else {
                 //if we are here, then the article is in the article DB
                 //and first user is alredy in there as well
-                //if the user not in the users array of the article, then push the user
+                //if the user not in the users array of the article, then push the user in users array
                 //by default we also know that
                 //the article is not in the articles array of the user, then push the article
                 if (!articleFromArticleDB.users.includes(req.user._id)) {
@@ -116,6 +116,9 @@ async function createNewArticleInDB(articlesQueryText, userFromDB, req, res) {
     }
 }
 
+//the following redirects to the same endpoint when user does not search on the search bar
+//else it renders the page with the search bar title(which is assigned by "q" in the API link)
+//the function flashes the success message as well
 function renderSuccessMessages(articlesQueryText, article, successMsg, req, res) {
     if (!articlesQueryText.includes('q')) {
         req.flash('success_msg', `Article, "${article.title}" is Saved`);
@@ -130,6 +133,9 @@ function renderSuccessMessages(articlesQueryText, article, successMsg, req, res)
     }
 }
 
+//the following redirects to the same endpoint when user does not search on the search bar
+//else it renders the page with the search bar title(which is assigned by "q" in the API link)
+//the function flashes the error message as well
 function renderErrorMessages(articlesQueryText, article, errorMsg, req, res) {
     if (!articlesQueryText.includes('q')) {
         req.flash('error_msg', `You have already saved the article, "${article.title}"`);
