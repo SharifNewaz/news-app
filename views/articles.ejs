@@ -3,9 +3,9 @@
     <!-- Search Bar -->
     <section> 
         <form class="search-button" action="/articles/api" method="POST">
-            <input type="text" name="articleTypes" size="50" required>
+            <input type="text" name="articleTypes" size="50" required autofocus>
             <div>
-                <button type="submit" class="btn btn-lg btn-dark">Search</button>
+                <button type="submit" class="hero-btn btn btn-lg btn-dark">Search</button>
             </div>
         </form>
     </section>
@@ -58,7 +58,7 @@
                     <input type="hidden" name="articleContent" value="<%=articleContent%>">
                     <input type="hidden" name="articlePublished" value="<%=articlePublished%>">
                     <div class="save-btn">
-                        <button type="submit" class="btn btn-lg btn-dark">Save</button>
+                        <button type="submit" class="hero-btn btn btn-lg btn-dark">Save</button>
                     </div>
                 </form>
             </div>
@@ -69,7 +69,7 @@
     <!-- saved article button -->
     <section>
         <div class="text-end py-5" id="saved-article-btn">
-            <button type="submit" class="btn btn-lg btn-dark"> <a
+            <button type="submit" class="hero-btn btn btn-lg btn-dark"> <a
                     href="/articles/saved-articles">Go to your saved article</a> 
             </button>
         </div>

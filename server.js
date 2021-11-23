@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
 const flash = require('connect-flash');
+const methodOverride = require('method-override');
 const passport = require('passport');
 const MongoDBSession = require('connect-mongodb-session')(session);
 require('./config/passport')(passport);
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser('secretStringForCookies'));
+app.use(methodOverride('_method'));
 
 
 //initialize mongo for sessionStorage
@@ -66,6 +68,7 @@ app.use((req, res, next) => {
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/articles', articlesRouter);
+app.use('/about', indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

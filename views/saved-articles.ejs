@@ -15,30 +15,53 @@
     <!-- articles section -->
     <section>
         <div class="news-cards">
-            <%for(let i = 0; i < 20; i++){%>
-            <div class="news-card">
-                <form action="/articles/saved-articles" method="POST">
-                     <div class="save-btn">
-                        <button type="submit" class="btn btn-lg btn-dark">Edit</button>
-                    </div>
-                    <h2 class="h2 font-weight-bold">
-                       <a href="">Hello</a> 
-                    </h2>
-                     <p class="h4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, provident.</p>
-                     <p class="h5 text-center font-weight-bold">By Unknown</p>
-                    <div class="save-btn">
-                        <button type="submit" class="btn btn-lg btn-dark">Delete</button>
-                    </div>
-                </form>
+            <%if(articles.length === 0){%>
+            <div class="d-flex justify-content-center align-items-center">
+                <h3>No articles has been saved yet. Please go to the <a href="/articles/api">news page</a> to save articles first.</h3>
             </div>
-            <%}%>
-        </div>
+            <%}else{%>
+                <%for(let i = 0; i < articles.length; i++){%>
+                <%let articleID=articles[i]._id%>
+                <%let articleTitle=articles[i].title%>
+                <%let articleContent=articles[i].content.substring(0,150)%>
+                <%let articleAuthor=articles[i].author%>
+                <%let articleDescription=articles[i].description%>
+                <%let articleUrl=articles[i].url%>
+                <%let articlePublished=articles[i].publishedAt%>
+                <div class="news-card">
+                    <form action="/articles/edit-article" method="POST">
+                        <div class="text-start p-4">
+                            <button type="submit" class=" hero-btn btn btn-lg btn-dark">
+                                <input type="hidden" name="articleID" value=<%=articleID%>
+                                <a href="/articles/edit-article" class="text-light">Edit</a>
+                            </button>
+                        </div>
+                    </form>
+                    <h2 class="h2 font-weight-bold">
+                        <a href="<%=articles[i].url%>" target="_blank" rel="noopener noreferrer"><%=articleTitle.substring(0,40)%>..</a>
+                    </h2>
+                    <p class="h4"><%=articleContent%>..</p>
+                    <%if(articleAuthor){%>
+                        <p class="h5 text-center font-weight-bold">By <%=articleAuthor%></p>
+                    <%}else{%>
+                        <p class="h5 text-center font-weight-bold">By Unknown</p>
+                    <%}%>
+                    <form  action="/articles/saved-articles/<%=articleID%>?_method=DELETE" method="POST">
+                    <input type="hidden" name="articleLength" value="<%=articles.length%>">
+                        <div class="text-end p-4">
+                            <button type="submit" class="hero-btn btn btn-lg btn-dark">Delete</button>
+                        </div>
+                    </form>
+                </div>
+                <%}%>
+            </div>
+         <%}%>
     </section>
 
     <!-- saved article button -->
     <section>
         <div class="text-end py-5" id="saved-article-btn">
-            <button type="submit" class="btn btn-lg btn-dark"> <a
+            <button type="submit" class="hero-btn btn btn-lg btn-dark"> <a
                     href="/articles/api">Go to news page</a> 
             </button>
         </div>

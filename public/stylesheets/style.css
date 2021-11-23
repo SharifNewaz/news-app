@@ -7,6 +7,10 @@ html{
     --footer-color: #010B30;
 }
 
+textarea{
+  font-size: 1.8rem !important;
+}
+
 /* header and nav styles */
 .nav-head{
   background: var( --nav-color);
@@ -35,12 +39,15 @@ main{
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  font-family:--main-font;
 }
 
 /*increase the font of the texts that will be typed in the input field*/
 input[type="text"], input[type="email"], input[type="password"]
 {
     font-size:1.4rem;
+    font-family: var(--main-font);
+    padding-left: 1rem;
 }
 
 /*Search bar in articles*/
@@ -52,9 +59,6 @@ input[type="text"], input[type="email"], input[type="password"]
 }
 .search-button input{
   line-height: 2.5rem;
-}
-.search-button button{
-  background-color: --nav-color;
 }
 
 .search-button div{
@@ -69,10 +73,7 @@ input[type="text"], input[type="email"], input[type="password"]
 }
 #saved-article-btn button a{
   text-decoration: none;
-   color:aliceblue;
-}
-#saved-article-btn button{
- background-color: --nav-color;
+  color:aliceblue;
 }
 
 /* news cards */
@@ -114,6 +115,23 @@ input[type="text"], input[type="email"], input[type="password"]
   padding-bottom: 2rem;
 }
 
+/*Make all the buttons the main color*/
+.hero-btn{
+  background-color: var(--nav-color) !important;
+  font-family: var(--main-font) !important;
+  font-size: 1.3rem !important;
+}
+
+/* About page style */
+.news-card img{
+  width: 50rem;
+  height: 40rem;
+}
+
+.about-paragraph{
+  line-height: 3rem !important;
+}
+
 /* footer section */
 .main-footer {
   background-color: var(  --footer-color);
@@ -130,9 +148,15 @@ footer img{
   width: 55%;
 }
 
+
 /* media queiry */
 @media screen and (max-width: 425px) {
      .search-button input{
         width: 60%;
     }
+    .news-card img{
+      width: 10rem;
+      height: 10rem;
+    }
+
 }
