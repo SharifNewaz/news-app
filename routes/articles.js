@@ -9,12 +9,12 @@ router.route('/api')
     .get(ensureAuthenticated, getAllArticles)
     .post(ensureAuthenticated, postUserArticles);
 
-/* GET and DELETE saved-article page. */
+/* GET and DELETE saved-article. */
 router.get('/saved-articles', ensureAuthenticated, getSavedArticles);
 router.delete('/saved-articles/:id', deleteSavedArticle);
 
+/* GET and edit saved-article. */
 router.post('/edit-article', ensureAuthenticated, getEditArticle);
 router.put('/edit-article/:id', putEditArticle);
-
 
 module.exports = router;
