@@ -33,6 +33,13 @@ input[type="text"], input[type="email"], input[type="password"]
 {
     font-size:1.4rem;
 }
+
+/*After the laben a red start is added wherever the input is reequireed*/
+.required:after {
+content:" *";
+color: red;
+}
+
 .input-height{
     height: 3rem;
 }
