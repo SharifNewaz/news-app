@@ -19,9 +19,9 @@ module.exports = {
         }
 
         //validate the userName later and add the error message accordingly
-        // if (!validateUserName(userName)) {
-        //     errors.push({ msg: 'Invalid userName format' });
-        // }
+        if (!validateUserName(userName)) {
+            errors.push({ msg: 'Invalid userName format.' });
+        }
 
         //Query in the db to see if the userName exist
         try {
@@ -105,4 +105,10 @@ module.exports = {
 let validateEmail = (userEmail) => {
     let regExEmail = /(^[a-zA-Z]{1,})((\d){1,}|[\_|\.|\-][a-zA-Z]{1,})?\@([a-zA-Z]{1,})\-?([a-zA-Z]{1,})?\.([a-zA-Z]{2,3})$/;
     return regExEmail.test(userEmail);
+}
+
+let validateUserName = (userName) => {
+    let regExUserName = /^[A-Za-z0-9_]{1,}$/;
+    console.log(regExUserName.test(userName));
+    return regExUserName.test(userName);
 }
