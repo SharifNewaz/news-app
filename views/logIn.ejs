@@ -12,11 +12,11 @@
       <form action="/auth/login" method= "POST" class="p-5">
       <%- include('partials/messages') %>
         <div class="mb-3">
-          <label for="username-or-email" class="form-label h5">Username or Email</label>
+          <label for="username-or-email" class="required form-label h5">Username or Email</label>
           <input type="text" name="userNameOrEmail" class="form-control input-height" id="username-or-email" size="30" required autofocus>
         </div>
         <div class="mb-3">
-          <label for="password" class="form-label h5">Password</label>
+          <label for="password" class="form-label h5 required">Password</label>
           <input type="password" name="password" class= "form-control input-height inputPassword" id="password" size="30" required autofocus autocomplete="current-password">
           <div class="mt-3 d-flex align-items-center"> 
             <input type="checkbox" id= "togglePassword"> 
