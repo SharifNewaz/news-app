@@ -41,12 +41,13 @@ const sessionStorage = new MongoDBSession({
 // 86400000 millisecond =  a day
 // 43200000 = half a day
 // cookie: { maxAge: 43200000 },
+const oneDay = 1000 * 60 * 60 * 24;
 app.use(session({
   secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: { maxAge: 60000 },
+  saveUninitialized: true,
+  cookie: { maxAge: oneDay },
   store: sessionStorage,
+  resave: false
 }));
 
 // Passport middleware
